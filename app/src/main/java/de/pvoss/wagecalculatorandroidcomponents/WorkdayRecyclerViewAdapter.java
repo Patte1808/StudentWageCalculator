@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,13 +45,33 @@ public class WorkdayRecyclerViewAdapter extends RecyclerView.Adapter<WorkdayRecy
         holder.itemView.setTag(workday);
         holder.itemView.setOnLongClickListener(longClickListener);
 
-        if(position > 0 && workdayList.get(position -1).getStart().getMonth() == workday.getStart().getMonth()) {
+        if(position > 0 && workdayList.get(position -1).getStart().getMonth() == workday.getStart().getMonth()
+                && workdayList.get(position -1).getStart().getYear() == workday.getStart().getYear()) {
             holder.sectionHeader.setVisibility(View.GONE);
         } else {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(workday.getStart());
 
-            holder.sectionHeader.setText(new SimpleDateFormat("MMM").format(calendar.getTime()));
+            String currentDate = new SimpleDateFormat("MMM YY").format(calendar.getTime());
+
+            double monthlyWage = 0;
+
+            /*
+            Todo: use javarx or something equivalent (e.g. lambda filter)
+             */
+            for(Workday currentWorkday : workdayList) {
+                Date workdayStart = currentWorkday.getStart();
+
+                if(workdayStart.getMonth() == workday.getStart().getMonth() &&
+                        workdayStart.getYear() == workday.getStart().getYear()) {
+                    monthlyWage += (double) currentWorkday.getTotalWage();
+                }
+            }
+
+            /*
+            Todo: remove hardcoded string
+             */
+            holder.sectionHeader.setText(currentDate     + " (Overall " + NumberFormat.getCurrencyInstance().format(monthlyWage) + ")");
         }
     }
 

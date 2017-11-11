@@ -18,7 +18,7 @@ import de.pvoss.wagecalculatorandroidcomponents.models.Workday;
 @Dao
 public interface WorkdayDao {
 
-    @Query("select * from Workday")
+    @Query("select * from Workday order by start DESC")
     LiveData<List<Workday>> getAllWorkdays();
 
     @Query("select * from Workday where id = :id")
