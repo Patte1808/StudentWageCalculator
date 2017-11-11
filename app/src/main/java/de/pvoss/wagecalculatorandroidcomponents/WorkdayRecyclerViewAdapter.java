@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,9 +37,21 @@ public class WorkdayRecyclerViewAdapter extends RecyclerView.Adapter<WorkdayRecy
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, int position) {
         Workday workday = workdayList.get(position);
+        String hourlyWage = NumberFormat.getCurrencyInstance().format(workday.getTotalWage());
+
         holder.workdayDescription.setText(workday.getDescription());
+        holder.hourlyWage.setText(hourlyWage);
         holder.itemView.setTag(workday);
         holder.itemView.setOnLongClickListener(longClickListener);
+
+        if(position > 0 && workdayList.get(position -1).getStart().getMonth() == workday.getStart().getMonth()) {
+            holder.sectionHeader.setVisibility(View.GONE);
+        } else {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(workday.getStart());
+
+            holder.sectionHeader.setText(new SimpleDateFormat("MMM").format(calendar.getTime()));
+        }
     }
 
     @Override
@@ -50,8 +65,15 @@ public class WorkdayRecyclerViewAdapter extends RecyclerView.Adapter<WorkdayRecy
     }
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.section_header)
+        TextView sectionHeader;
+
         @BindView(R.id.workday_description)
         TextView workdayDescription;
+
+        @BindView(R.id.hourly_wage)
+        TextView hourlyWage;
 
         RecyclerViewHolder(View view) {
             super(view);

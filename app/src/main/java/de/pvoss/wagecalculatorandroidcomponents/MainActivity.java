@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -37,9 +38,15 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
         ButterKnife.bind(this);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewAdapter = new WorkdayRecyclerViewAdapter(new ArrayList<Workday>(), this);
         recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(layoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
 

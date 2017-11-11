@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WageCalculatorAndroidComponents</string>
+    <string name="description_placeholder">How was your workday?</string>
+    <string name="starttime_placeholder">When did you start working?</string>
+    <string name="endtime_placeholder">When did you stop working?</string>
+    <string name="hourly_wage_placeholder">What is your hourly wage?</string>
 </resources>

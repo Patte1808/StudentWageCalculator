@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/paddingBetweenItems"
+    android:paddingBottom="@dimen/paddingBetweenItems"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/section_header"
+        android:layout_gravity="start"
+        android:textStyle="bold"
+        android:paddingBottom="@dimen/paddingBetweenItems"
+        android:textSize="@dimen/sectionFontSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/workday_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/section_header"
+        app:layout_constraintTop_toBottomOf="@+id/section_header" />
+
+    <TextView
+        android:id="@+id/hourly_wage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="236dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/section_header"
+        app:layout_constraintTop_toBottomOf="@+id/section_header" />
+
+</android.support.constraint.ConstraintLayout>
