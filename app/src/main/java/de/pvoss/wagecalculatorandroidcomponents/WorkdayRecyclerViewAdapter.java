@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +53,8 @@ public class WorkdayRecyclerViewAdapter extends RecyclerView.Adapter<WorkdayRecy
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(workday.getStart());
 
-            String currentDate = new SimpleDateFormat("MMM YY").format(calendar.getTime());
+            String currentDate = new SimpleDateFormat("MMM yy", Locale.ENGLISH)
+                    .format(calendar.getTime()).toString();
 
             double monthlyWage = 0;
 
